@@ -8,6 +8,8 @@ Carlos Dubán Jiménez - Product owner
 
 Claudia Solano - Scrum Master
 
+Willian Zambrano - Analista
+
 
 
 
