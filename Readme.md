@@ -5,3 +5,5 @@ Edson Ramirez - Desarrollador
 William Henao - Databases.
 
 Carlos Dubán Jiménez - Product owner
+
+Claudia Solano - Scrum Master
