@@ -1,0 +1,7 @@
+Deben instalar los siguiente al proyecto
+
+npm i reactstrap 
+npm i bootstrap 
+npm install --save styled-components
+npm install sweetalert2
+npm i @material-ui/core
