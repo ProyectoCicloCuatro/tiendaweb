@@ -1,4 +1,7 @@
-Deben instalar los siguiente al proyecto
+Para crear el proyecto usé: 
+npx create-react-app appTienda 
+
+Luego agregué o instalé los siguiente módulos al proyecto.
 
 npm i reactstrap 
 npm i bootstrap 
