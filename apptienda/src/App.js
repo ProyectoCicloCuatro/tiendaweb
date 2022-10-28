@@ -1,6 +1,4 @@
-import List from './components/List';
-import Menu from './components/Menu';
-import ShoppingCart from './vistas/ShoppingCart';
+
 import Header from './components/Header';
 import Navegation from './components/Navegation';
 import Footers from './components/Footers';
