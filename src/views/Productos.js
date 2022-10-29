@@ -8,6 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import Icon from '@material-ui/core/Icon';
+import Confirmacion from '../components/Confirmacion'
 
 const columnas = [
     { field: "id", headerName: "Id", width: 100 },
@@ -19,8 +20,7 @@ const columnas = [
     { field: "descripcion", headerName: "Descripción", width: 500 },
     { field: "caracteristicas", headerName: "Caracteristicas", width: 500 },
     {
-        field: "precio", headerName: "Precio", width: 200,
-        renderCell: (params) => params.value.toLocaleString('USD')
+        field: "precio", headerName: "Precio", width: 200
     },
 ]
 
@@ -38,6 +38,7 @@ const Productos = () => {
     const [productoEditado, setProductoEditado] = useState({});
 
     const [estadoModal, setEstadoModal] = useState(false);
+    const [estadoConfirmacion, setEstadoConfirmacion] = useState(false);
 
     async function obtenerProductos() {
         const productosT = await listarProductos();
@@ -73,6 +74,36 @@ const Productos = () => {
     }
 
     const eliminar = () => {
+        if (productoSeleccionado) {
+            setProductoEditado(productoSeleccionado);
+            setEstadoConfirmacion(true);
+        }
+        else {
+            window.alert("Por favor seleccione el país a eliminar");
+        }
+    }
+
+    const cerrarConfirmacion = () => {
+        setEstadoConfirmacion(false);
+    }
+
+    const aceptarConfirmacion = () => {
+        fetch(`http://localhost:3020/productos/${productoEditado.id}`,
+            { method: 'delete' }
+        )
+            .then((res) => {
+                if (res.status != 200) {
+                    throw Error(res.statusText);
+                }
+                return res.json();
+            })
+            .then((json) => {
+                window.alert(json.mensaje);
+                setEstadoListado(true);
+            })
+            .catch((error) => {
+                window.alert(`Error eliminando Producto: ${error}`);
+            });
 
     }
 
@@ -131,6 +162,12 @@ const Productos = () => {
                 />
 
                 <ModalEditar open={estadoModal} cerrar={cerrarModal} producto={productoEditado} />
+                <Confirmacion open={estadoConfirmacion}
+                    titulo="Eliminado producto"
+                    mensaje="Está seguro?"
+                    cerrar={cerrarConfirmacion}
+                    aceptar={aceptarConfirmacion}
+                />
             </div>
 
         </div>

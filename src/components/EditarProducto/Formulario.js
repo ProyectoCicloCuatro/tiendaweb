@@ -29,7 +29,7 @@ const Formulario = ({ cerrarFormulario, productoEditado }) => {
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    id: id,
+                    id: eval(id),
                     urlImagen: urlImagen,
                     nombre: nombre,
                     descripcion: descripcion,
