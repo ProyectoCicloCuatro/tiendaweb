@@ -1,21 +1,38 @@
-import List from './components/List';
-import Menu from './components/Menu';
-import ShoppingCart from './components/ShoppingCart';
-import Header from './components/Header';
-import Navegation from './components/Navegation';
-import Footers from './components/Footers';
-import './styles/styles.css';
 
+import './App.css';
+
+import MenuPrincipal from './components/MenuPrincipal';
+import Navegation from './components/Navegation';
+import Header from './components/Header';
+import Rutas from './components/Rutas'
+import ShoppingCart from './components/ShoppingCart';
+import Footers from './components/Footers';
+
+import { BrowserRouter as Router } from 'react-router-dom';
 
 
 function App() {
+  
   return (
-   <div>
+    <div>
+      
+      <Router >
+      
       <Navegation />
+      {
+        //<MenuPrincipal />
+      }
+
       <Header />
-      <ShoppingCart />
+      <Rutas />
+      
+      
       <Footers />
+
+
+    </Router>
    </div>
+    
   );
 }
 

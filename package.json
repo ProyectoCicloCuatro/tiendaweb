@@ -1,19 +1,25 @@
 {
-  "name": "app-tienda",
+  "name": "tiendaweb",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/data-grid": "^4.0.0-alpha.37",
+    "@material-ui/icons": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.61",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.2",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
+    "react-helper": "^4.0.0",
+    "react-player": "^2.11.0",
+    "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "reactstrap": "^9.1.4",
     "styled-components": "^5.3.6",
-    "sweetalert2": "^11.5.2",
+    "sweetalert2": "^11.6.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -22,6 +28,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:3020",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -39,5 +46,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

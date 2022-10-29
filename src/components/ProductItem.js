@@ -2,6 +2,7 @@
     return ( <div>Producto</div> );
 }
  */
+//const [count, setCount] = useState(0);
 
 const ProductItem = ({ data, addToCart }) => {
   const Swal = require('sweetalert2')
@@ -22,7 +23,7 @@ const ProductItem = ({ data, addToCart }) => {
         </div>
         {/*<!-- Product actions-->*/}
         <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-          <div className="text-center"><button className="btn btn-outline-dark mt-auto" onClick={() => [addToCart(id), 
+          <div className="text-center"><button className="btn btn-outline-dark mt-auto" onClick={() => [addToCart(data), 
           Swal.fire({
             position: 'center',
             icon: 'success',
