@@ -1,0 +1,10 @@
+Para crear el proyecto usé: 
+npx create-react-app appTienda 
+
+Luego agregué o instalé los siguiente módulos al proyecto.
+
+npm i reactstrap 
+npm i bootstrap 
+npm install --save styled-components
+npm install sweetalert2
+npm i @material-ui/core
