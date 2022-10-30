@@ -20,7 +20,8 @@ const columnas = [
     { field: "descripcion", headerName: "Descripción", width: 500 },
     { field: "caracteristicas", headerName: "Caracteristicas", width: 500 },
     {
-        field: "precio", headerName: "Precio", width: 200
+        field: "precio", headerName: "Precio", width: 200,
+        renderCell: (field) => field.value.toLocaleString('USD')
     },
 ]
 
@@ -92,7 +93,7 @@ const Productos = () => {
             { method: 'delete' }
         )
             .then((res) => {
-                if (res.status != 200) {
+                if (res.status !== 200) {
                     throw Error(res.statusText);
                 }
                 return res.json();

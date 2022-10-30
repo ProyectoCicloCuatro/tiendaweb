@@ -1,11 +1,11 @@
 
 import './App.css';
 
-import MenuPrincipal from './components/MenuPrincipal';
+//import MenuPrincipal from './components/MenuPrincipal';
 import Navegation from './components/Navegation';
 import Header from './components/Header';
 import Rutas from './components/Rutas'
-import ShoppingCart from './components/ShoppingCart';
+//import ShoppingCart from './components/ShoppingCart';
 import Footers from './components/Footers';
 
 import { BrowserRouter as Router } from 'react-router-dom';

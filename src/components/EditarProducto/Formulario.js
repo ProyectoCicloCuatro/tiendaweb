@@ -34,7 +34,7 @@ const Formulario = ({ cerrarFormulario, productoEditado }) => {
                     nombre: nombre,
                     descripcion: descripcion,
                     caracteristicas: caracteristicas,
-                    precio: precio,
+                    precio: parseFloat(precio)
                 }
                 )
             }
