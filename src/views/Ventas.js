@@ -1,9 +1,9 @@
 import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import React, { useState } from "react";
-import ModalEditar from "../components/EditarVenta/Modal";
+import ModalEditar from "../components/EditarVenta/ModalVentas";
 import { listarVentas, obtenerEstilos } from "../service/ListasVentas";
-import {Producto} from '../modelos/modelos';
+import {Venta} from '../modelos/modelosVentas';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
@@ -26,12 +26,12 @@ const columnas = [
 ]
 
 
-const ventas = () => {
+const Ventas = () => {
     
     const estilos = obtenerEstilos();
 
     //variable que almacenar[a el listado de Ventas]
-    const [ventas, setventas] = useState([]);
+    const [ventas, setVentas] = useState([]);
     const [estadoListado, setEstadoListado] = useState(true);
 
     
@@ -58,7 +58,7 @@ const ventas = () => {
     }
 
     const agregar = () => {
-        const VentasE = new Ventas(-1, "", "", "", "", "", "");
+        const VentasE = new Venta(-1, "", "", "", "", "", "");
         setVentasEditado(VentasE);
         setEstadoModal(true);
     }
@@ -66,7 +66,7 @@ const ventas = () => {
     const modificar = () => {
         if (ventasSeleccionadas) {
             const VentasE = ventasSeleccionadas;
-            setVentasEditado(ventasE);
+            setVentasEditado(VentasE);
             setEstadoModal(true);
         }
         else {
@@ -89,7 +89,7 @@ const ventas = () => {
     }
 
     const aceptarConfirmacion = () => {
-        fetch(`http://localhost:3020/ventas/${ventaEditado.id}`,
+        fetch(`http://localhost:3020/Ventas/${ventaEditado.id}`,
             { method: 'delete' }
         )
             .then((res) => {
@@ -152,7 +152,7 @@ const ventas = () => {
                       
 
                     onSelectionModelChange={(idVentas) => {
-                        const ventasSeleccionadas = Ventas.filter(
+                        const ventasSeleccionadas = ventas.filter(
                             function (fila) {
                                 return fila.id === idVentas[0];
                             }
@@ -162,7 +162,7 @@ const ventas = () => {
                     }
                 />
 
-                <ModalEditar open={estadoModal} cerrar={cerrarModal} ventas={ventasEditadas} />
+                <ModalEditar open={estadoModal} cerrar={cerrarModal} ventas={ventaEditado} />
                 <Confirmacion open={estadoConfirmacion}
                     titulo="Eliminado Venta"
                     mensaje="Está seguro?"

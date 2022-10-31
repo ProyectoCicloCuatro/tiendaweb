@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import { Venta } from "../modelos/modelos";
+import { Venta } from "../modelos/modelosVentas";
 
 
 export const obtenerEstilos = makeStyles(theme => ({
