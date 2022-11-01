@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core";
-import { Producto } from "../modelos/modelos";
+import { Producto, Venta } from "../modelos/modelos";
 
 export const obtenerEstilos = makeStyles(theme => ({
     button: {
         margin: theme.spacing(1),
-      },
+    },
     botonAgregar: {
         borderRadius: 15,
         backgroundColor: "#21b6ae",
@@ -167,6 +167,35 @@ export const listarProductos = () => {
    */
 }
 
+export const listarVentas = () => {
+
+    //construir la lista de productos desde la API
+    return fetch("http://localhost:3020/ventas",
+        {
+            method: "GET",
+        })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error(`HTTP error, estado=${res.status}`);
+            }
+            return res.json();
+        })
+        .then((json) => {
+            var ventas = [];
+            json.map((item) => {
+                ventas.push(new Venta(item.id,
+                    item.fecha,
+                    item.idCliente,
+                    item.valor,
+                    item.confirmado,
+                    item.detalleCompra
+                ));
+            });
+            return ventas;
+        })
+        .catch(function (error) {
+            window.alert(`Error consultado ventas[${error}]`);
+        });
 
 
-
+}

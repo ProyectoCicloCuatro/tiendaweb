@@ -1,6 +1,6 @@
 const Navegation = () => {
-    return (  
-        
+    return (
+
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container px-4 px-lg-5">
                 <a className="navbar-brand" href="#!">AppStore</a>
@@ -9,6 +9,7 @@ const Navegation = () => {
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li className="nav-item"><a className="nav-link active" aria-current="page" href="/">Inicio</a></li>
                         <li className="nav-item"><a className="nav-link" href="/productos">Productos</a></li>
+                        <li className="nav-item dropdown"><a className="nav-link" href="/Ventas">Ventas</a></li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -31,5 +32,5 @@ const Navegation = () => {
         </nav>
     );
 }
- 
+
 export default Navegation;

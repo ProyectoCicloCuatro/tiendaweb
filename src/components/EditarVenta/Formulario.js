@@ -3,23 +3,23 @@ import { Button, TextField } from "@material-ui/core";
 import React, { useState } from 'react';
 
 
-const Formulario = ({ cerrarFormulario, productoEditado }) => {
+const Formulario = ({ cerrarFormulario, ventaEditado }) => {
 
     const estilos = obtenerEstilosModal();
-    //window.alert(productoEditado.id);
-    const [id, setId] = useState(productoEditado.id);
-    const [urlImagen, setUrlImagen] = useState(productoEditado.urlImagen);
-    const [nombre, setNombre] = useState(productoEditado.nombre);
-    const [descripcion, setDescripcion] = useState(productoEditado.descripcion);
-    const [caracteristicas, setCaracteristicas] = useState(productoEditado.caracteristicas);
-    const [precio, setPrecio] = useState(productoEditado.precio);
+    window.alert(ventaEditado.id);
+    const [id, setId] = useState(ventaEditado.id);
+    const [fecha, setFecha] = useState(ventaEditado.fecha);
+    const [idCliente, setIdCliente] = useState(ventaEditado.idCliente);
+    const [valor, setValor] = useState(ventaEditado.valor);
+    const [confirmado, setConfirmado] = useState(ventaEditado.confirmado);
+    const [detalleCompra, setDetalleCompra] = useState(ventaEditado.detalleCompra);
 
     const guardar = async (e) => {
         let url = "";
-        if (productoEditado.id >= 0) {
-            url = "http://localhost:3020/productos/modificar";
+        if (ventaEditado.id >= 0) {
+            url = "http://localhost:3020/ventas/modificar";
         } else {
-            url = "http://localhost:3020/productos/agregar";
+            url = "http://localhost:3020/ventas/agregar";
         }
         fetch(url,
             {
@@ -30,69 +30,69 @@ const Formulario = ({ cerrarFormulario, productoEditado }) => {
                 },
                 body: JSON.stringify({
                     id: eval(id),
-                    urlImagen: urlImagen,
-                    nombre: nombre,
-                    descripcion: descripcion,
-                    caracteristicas: caracteristicas,
-                    precio: parseFloat(precio)
+                    fecha: fecha,
+                    idCliente: eval(idCliente),
+                    valor: parseFloat(valor),
+                    confirmado: confirmado,
+                    detalleCompra: detalleCompra
                 }
                 )
             }
         ).then((res) => res.json())
             .then((json) => {
-                window.alert(`El producto [${json.nombre}] fue ${productoEditado.id >= 0 ? "modificado" : "agregado"}`);
+                window.alert(`La venta [${json.id}] fue ${ventaEditado.id >= 0 ? "modificado" : "agregado"}`);
                 cerrarFormulario();
             })
             .catch((error) => {
-                window.alert(`Error actulizando productos: ${error}`);
+                window.alert(`Error actulizando ventas: ${error}`);
             })
     }
 
     return (
         <form className={estilos.root} onSubmit={guardar}>
             <TextField
-                label="ID del producto"
+                label="Id de la venta"
                 variant="filled"
                 required
                 value={id}
                 onChange={(e) => { setId(e.target.value) }}
             />
             <TextField
-                label="Imagen del producto"
+                label="Fecha de la Venta"
                 variant="filled"
                 required
-                value={urlImagen}
-                onChange={(e) => { setUrlImagen(e.target.value) }}
+                value={fecha}
+                onChange={(e) => { setFecha(e.target.value) }}
             />
             <TextField
-                label="Producto"
+                label="Id Cliente"
                 variant="filled"
                 required
-                value={nombre}
-                onChange={(e) => { setNombre(e.target.value) }}
+                value={idCliente}
+                onChange={(e) => { setIdCliente(e.target.value) }}
             />
             <TextField
-                label="Descripcion"
+                label="Valor Venta"
                 multiline
                 variant="filled"
                 required
-                value={descripcion}
-                onChange={(e) => { setDescripcion(e.target.value) }}
+                value={valor}
+                onChange={(e) => { setValor(e.target.value) }}
             />
             <TextField
-                label="Caracteristicas"
+                label="Estado"
                 multiline
                 variant="filled"
                 required
-                value={caracteristicas}
-                onChange={(e) => { setCaracteristicas(e.target.value) }}
+                value={confirmado}
+                onChange={(e) => { setConfirmado(e.target.value) }}
             />
             <TextField
-                label="Precio"
+                label="Detalle de la Venta"
                 variant="filled"
                 required
-                value={precio}
-                onChange={(e) => { setPrecio(e.target.value) }}
+                value={detalleCompra}
+                onChange={(e) => { setDetalleCompra(e.target.value) }}
             />
             <div>
                 <Button variant="contained" onClick={cerrarFormulario}>
