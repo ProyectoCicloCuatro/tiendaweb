@@ -18,6 +18,7 @@ import styled from 'styled-components';
 import Modal from './Modal';
 import Swal from 'sweetalert2'
 import { listarProductos } from "../service/Listas";
+import { Icon } from "@material-ui/core";
 
 const ShoppingCart = () => {
 
@@ -114,7 +115,7 @@ const ShoppingCart = () => {
               //window.alert(item),
               <CartItem key={index} data={item} delFromCart={delFromCart} />
             ))}
-
+<div>
             <Button color="primary" onClick={() => Swal.fire({
               title: '¿Está seguro?',
               text: "Esta acción eliminará todos los artículos y dejará totalmente vació el carrito de compras!",
@@ -132,7 +133,18 @@ const ShoppingCart = () => {
                 });
                 cambiarEstadoModal1(!estadoModal1)
               }
-            })}>Limpiar Carrito</Button>
+            })}> Limpiar Carrito
+            <Icon>
+            backspace
+            </Icon> 
+            </Button>  &nbsp;&nbsp;
+            <Button color="success">
+             Pagar
+             <Icon>
+            shopping_cart_checkout
+            </Icon>
+            </Button></div>
+            
           </Contenido>
         </Modal>
       </div>

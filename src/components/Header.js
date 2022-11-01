@@ -1,6 +1,6 @@
 const Header = () => {
     return ( 
-        <header className="bg-dark py-2 sticky-top" >
+        <header className="bg-dark py-2 " >
             <div className="container px-4 px-lg-5 my-2">
                 <div className="text-center text-white">
                     <h1 className="display-4 fw-bolder">Programadores Ciclo 4</h1>

@@ -111,9 +111,9 @@ const Productos = () => {
     return (
         <div>
             <center>
-                <h1>Lista de productos</h1>
+                <h2>Lista de productos</h2>
             </center>
-            <div style={{ height: 500, width: '100%' }}>
+            <div style={{ height: 700, width: '100%' }}>
                 <Button
                     size="large" 
                     variant="outlined" 
@@ -149,7 +149,7 @@ const Productos = () => {
                     pageSize={7}
                     rowsPerPageOptions={[7]}
                     rowHeight={150} 
-                      
+                    sx={{ height: '100%' }} 
 
                     onSelectionModelChange={(idProductos) => {
                         const productosSeleccionados = productos.filter(

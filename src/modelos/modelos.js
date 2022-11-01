@@ -61,11 +61,11 @@ export const Producto = function (id, urlImagen, nombre, descripcion, caracteris
   }
 ]
 */
-export const Venta = function  (id, fecha, idCliente, valor, confirmado, detalleCompra) {
+export const Venta = function  (id, fecha, valor, confirmado, detalleCompra, cliente) {
     this.id = id;
     this.fecha = fecha;
-    this.idCliente = idCliente;
     this.valor = valor;
     this.confirmado = confirmado;
     this.detalleCompra = detalleCompra;
+    this.cliente = cliente;
 }

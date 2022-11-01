@@ -1,39 +1,60 @@
-import React from 'react';
+import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import ShoppingCart from '../components/ShoppingCart';
+import ReactPlayer from 'react-player'; 
+import RutaVideo from '../assets/videos/ventasinicio.mp4'
 
-
-
-const obtenerEstilos = makeStyles(theme => ({
-    root: {
+const obtenerEstilos = makeStyles((tema) => ({
+    raiz: {
         width: '100%',
-        height: '24vh',
+        height: '80vh',
         position: 'relative',
         '& video': {
             objectFit: 'cover',
-        },
+        }
     },
-    overlay: {
+    superponer: {
         position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
-    title: {
-        paddingBottom: theme.spacing(4),
-    },
-}));
+    titulo: {
+        paddingBottom: tema.spacing(4),
+    }
+}
+)
+);
 
 const Inicio = () => {
     const estilos = obtenerEstilos();
-
     return (
-        <section className={estilos.root}>
-            <ShoppingCart />
-        </section>
+        <section className={estilos.raiz}>
+            <ReactPlayer
+                url={RutaVideo}
+                playing
+                loop
+                muted
+                width="100%"
+                height="100%"
+            />
+            <div className={estilos.superponer}>
+                <Box
+                    height="100%"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    color="#fff"
+                >
+
+                    <Typography variant="h3" component="h1" classname={estilos.titulo}>
+                    </Typography>
+                </Box>
+            </div>
+        </section >
     );
-};
+}
 
 export default Inicio;

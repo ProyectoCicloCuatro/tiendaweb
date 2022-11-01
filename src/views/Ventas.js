@@ -13,10 +13,9 @@ import Confirmacion from '../components/Confirmacion'
 const columnas = [
     { field: "id", headerName: "Id", width: 100 },
     {
-        field: "fecha", headerName: "Fecha", width: 300,
+        field: "fecha", headerName: "Fecha", width: 300
         // renderCell will render the component
     },
-    { field: "idCliente", headerName: "Cliente", width: 300 },
     {
         field: "valor", headerName: "Valor", width: 300,
         renderCell: (field) => field.value.toLocaleString('USD')
@@ -26,15 +25,30 @@ const columnas = [
         field: "detalleCompra", headerName: "Detalle de la venta", width: 500,
         renderCell: (params) => (
             <ul className="flex">
-              {params.value.map((detalleCompra, index) => (
-                <li key={index}>idProducto: {detalleCompra.idProducto} - Cantidad: {detalleCompra.cantidad}</li>
-                
-              ))}
+                {params.value.map((detalleCompra, index) => (
+                    <li key={index}>idProducto: {detalleCompra.idProducto} - Cantidad: {detalleCompra.cantidad}</li>
+
+                ))}
             </ul>
-          ),
-          type: 'string',
+        ),
+        type: 'string',
 
     },
+    {
+        field: "cliente", headerName: "Cliente", width: 500,
+        renderCell: (params) => {
+            const client = params.row.cliente;
+            return (
+                <>
+                    <p>{`${client.nombreCliente}  ${client.apellidoCliente}`} </p>
+                </>
+            );
+        },
+        
+    
+
+    },
+    
 ]
 
 

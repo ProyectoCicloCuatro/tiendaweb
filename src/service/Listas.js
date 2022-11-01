@@ -185,10 +185,10 @@ export const listarVentas = () => {
             json.map((item) => {
                 ventas.push(new Venta(item.id,
                     item.fecha,
-                    item.idCliente,
                     item.valor,
                     item.confirmado,
-                    item.detalleCompra
+                    item.detalleCompra,
+                    item.cliente
                 ));
             });
             return ventas;
