@@ -20,7 +20,10 @@ const columnas = [
         field: "valor", headerName: "Valor", width: 300,
         renderCell: (field) => field.value.toLocaleString('USD')
     },
-    { field: "confirmado", headerName: "Estado", width: 200 },
+    { 
+        field: "confirmado", headerName: "Estado", width: 200,
+        renderCell: (field) => field.value ? "Confirmado" : "Pendiente"
+    },
     {
         field: "detalleCompra", headerName: "Detalle de la venta", width: 500,
         renderCell: (params) => (

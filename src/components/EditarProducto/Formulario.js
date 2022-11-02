@@ -64,6 +64,11 @@ const Formulario = ({ cerrarFormulario, productoEditado }) => {
                 value={urlImagen}
                 onChange={(e) => { setUrlImagen(e.target.value) }}
             />
+            
+            <img src= {urlImagen}
+            width="250px"
+            overflow= "Hidden"
+            />  
             <TextField
                 label="Producto"
                 variant="filled"

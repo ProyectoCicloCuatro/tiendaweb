@@ -102,6 +102,7 @@ const ShoppingCart = () => {
         </ButtonGroup>
 
         <Modal
+          
           estado={estadoModal1}
           cambiarEstado={cambiarEstadoModal1}
           titulo="Carrito de Compras"
@@ -197,4 +198,5 @@ const Contenido = styled.div`
 		vertical-align: top;
 		border-radius: 3px;
 	}
+  overflow-y: scroll;
 `;
