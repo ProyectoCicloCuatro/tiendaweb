@@ -10,6 +10,7 @@ const Navegation = () => {
                         <li className="nav-item"><a className="nav-link active" aria-current="page" href="/Compras">Compras</a></li>
                         <li className="nav-item"><a className="nav-link" href="/Ventas">Ventas</a></li>
                         <li className="nav-item"><a className="nav-link" href="/Productos">Productos</a></li>
+                        <li className="nav-item"><a className="nav-link" href="/Carrito">Carrito</a></li>
                     </ul>
                     <form className="d-flex">
                     </form>

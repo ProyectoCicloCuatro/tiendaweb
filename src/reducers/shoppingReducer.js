@@ -4,8 +4,8 @@ import { listarProductos, Producto } from "../service/Listas";
 
 
 
-export const shoppingInitialState =  {
-  products:null, 
+export const shoppingInitialState = {
+  products: null,
   cart: []
 };
 
@@ -20,6 +20,33 @@ export function shoppingReducer(state, action) {
       console.log(newItem);
 
       let itemInCart = state.cart.find((item) => item.id === newItem.id);
+      let url = "http://localhost:3020/ventas/detalle/1";
+
+      fetch(url,
+        {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+
+            producto: {
+              id: newItem.id
+            },
+            cantidad: 1
+          }
+
+          )
+        }
+      ).then((res) => res.json())
+        .then((json) => {
+          //window.alert(`La venta [${json.id}] fue ${ventaEditado.id >= 0 ? "modificado" : "agregado"}`);
+          // cerrarFormulario();
+        })
+        .catch((error) => {
+          window.alert(`Error actulizando ventas: ${error}`);
+        })
 
       return itemInCart
         ? {

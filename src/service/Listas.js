@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import { Producto, Venta } from "../modelos/modelos";
+import { Producto, Venta, DetalleVenta } from "../modelos/modelos";
 
 export const obtenerEstilos = makeStyles(theme => ({
     button: {
@@ -65,7 +65,8 @@ export const listarProductos = () => {
                     item.nombre,
                     item.descripcion,
                     item.caracteristicas,
-                    item.precio
+                    item.precio,
+                    item.cantidad
                 ));
             });
             return productos;
@@ -168,9 +169,10 @@ export const listarProductos = () => {
 }
 
 export const listarVentas = () => {
-
+    let url="http://localhost:3020/ventas";
+    //window.alert(url);
     //construir la lista de productos desde la API
-    return fetch("http://localhost:3020/ventas",
+    return fetch(url,
         {
             method: "GET",
         })
@@ -184,18 +186,57 @@ export const listarVentas = () => {
             var ventas = [];
             json.map((item) => {
                 ventas.push(new Venta(item.id,
+                    item.cliente,
                     item.fecha,
                     item.valor,
                     item.confirmado,
-                    item.detalleCompra,
-                    item.cliente
                 ));
             });
+            //window.alert(ventas);
             return ventas;
+            
         })
         .catch(function (error) {
             window.alert(`Error consultado ventas[${error}]`);
         });
 
 
+}
+
+export const listarDetalleVentas = (idVentas) => {
+    //Consultar la lista de paises desde la API
+    let url = `http://localhost:3020/ventas/detalle/${idVentas}`;
+    //window.alert(url);
+    return fetch(url,
+        {
+            method: "GET",
+        })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error(`HTTP error, estado=${res.status}`);
+            }
+            return res.text();
+        })
+        .then((data) => {
+            return data.length == 0 ? '{}' : JSON.parse(data);
+        })
+        .then((json) => {
+            var detalles = [];
+            if (json != '{}') {
+                json.map((item, indice) => {
+                    detalles.push(new DetalleVenta(item.id,
+                        item.producto.nombre,
+                        item.cantidad,
+                        item.valorunitario
+                    ));
+                });
+            }
+            console.log('Hola mundo');
+            console.log(detalles);
+            //window.alert(detalles);
+            return detalles;
+        })
+        .catch(function (error) {
+            window.alert(`Error consultando regiones [${error}]`);
+        });
 }

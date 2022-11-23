@@ -2,8 +2,8 @@ import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import React, { useState } from "react";
 import ModalEditar from "../components/EditarVenta/Modal";
-import { listarVentas, obtenerEstilos } from "../service/Listas";
-import { Venta } from '../modelos/modelos';
+import { listarDetalleVentas, obtenerEstilos } from "../service/Listas";
+import { DetalleVenta } from '../modelos/modelos';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
@@ -13,9 +13,10 @@ import Confirmacion from '../components/Confirmacion'
 const columnas = [
     { field: "id", headerName: "Id", width: 100 },
     {
-        field: "fecha", headerName: "Fecha", width: 150
+        field: "cantidad", headerName: "cantidad", width: 150
         // renderCell will render the component
     },
+     /*
     { 
         field: "cliente", headerName: "Cliente", width: 200,
         renderCell: (params) => {
@@ -36,7 +37,7 @@ const columnas = [
         field: "confirmado", headerName: "Estado", width: 200,
         renderCell: (field) => field.value ? "Confirmado" : "Pendiente"
     },
-    /*
+   
     { 
         field: "nitCliente", headerName: "Nit Cliente", width: 200,
         
@@ -81,32 +82,33 @@ const columnas = [
 ]
 
 
-const Ventas = () => {
+const Carrito = () => {
 
     const estilos = obtenerEstilos();
 
     //variable que almacenar[a el listado de productos]
-    const [ventas, setVentas] = useState([]);
+    const [detalleVenta, setDetalleVenta] = useState([]);
     const [estadoListado, setEstadoListado] = useState(true);
 
 
 
-    const [ventaEditado, setVentaEditado] = useState({});
+    const [detalleVentaEditado, setDetalleVentaEditado] = useState({});
 
     const [estadoModal, setEstadoModal] = useState(false);
     const [estadoConfirmacion, setEstadoConfirmacion] = useState(false);
 
-    async function obtenerVentas() {
-        const ventasT = await listarVentas();
-        setVentas(ventasT);
+    async function obtenerDetalleVentas() {
+        const ventasT = await listarDetalleVentas(1);
+        setDetalleVenta(ventasT);
         setEstadoListado(false);
-        //window.alert(ventasT);
+        //window.alert('prueba'+ventasT);
     }
 
     var ventaSeleccionado;
 
     if (estadoListado) {
-        obtenerVentas();
+        obtenerDetalleVentas();
+        
     }
 
     const cerrarModal = () => {
@@ -114,15 +116,15 @@ const Ventas = () => {
     }
 
     const agregar = () => {
-        const ventaE = new Venta(-1, "", "", "", "", "", "");
-        setVentaEditado(ventaE);
+        const ventaE = new DetalleVenta(-1, "", "", "", "", "", "");
+        setDetalleVentaEditado(ventaE);
         setEstadoModal(true);
     }
 
     const modificar = () => {
         if (ventaSeleccionado) {
             const ventaE = ventaSeleccionado;
-            setVentaEditado(ventaE);
+            setDetalleVentaEditado(ventaE);
             setEstadoModal(true);
         }
         else {
@@ -132,7 +134,7 @@ const Ventas = () => {
 
     const eliminar = () => {
         if (ventaSeleccionado) {
-            setVentaEditado(ventaSeleccionado);
+            setDetalleVentaEditado(ventaSeleccionado);
             setEstadoConfirmacion(true);
         }
         else {
@@ -145,7 +147,7 @@ const Ventas = () => {
     }
 
     const aceptarConfirmacion = () => {
-        fetch(`http://localhost:3020/ventas/${ventaEditado.id}`,
+        fetch(`http://localhost:3020/ventas/${detalleVentaEditado.id}`,
             { method: 'delete' }
         )
             .then((res) => {
@@ -167,7 +169,7 @@ const Ventas = () => {
     return (
         <div>
             <center>
-                <h1>Lista de Ventas</h1>
+                <h1>Carrito de Compras</h1>
             </center>
             <div style={{ height: 500, width: '100%' }}>
                 <Button
@@ -200,7 +202,8 @@ const Ventas = () => {
                     Eliminar
                 </Button>
                 <DataGrid
-                    rows={ventas}
+                
+                    rows={detalleVenta.rows}
                     columns={columnas}
                     pageSize={7}
                     rowsPerPageOptions={[7]}
@@ -208,7 +211,7 @@ const Ventas = () => {
 
 
                     onSelectionModelChange={(idVentas) => {
-                        const ventasSeleccionados = ventas.filter(
+                        const ventasSeleccionados = detalleVenta.filter(
                             function (fila) {
                                 return fila.id === idVentas[0];
                             }
@@ -218,13 +221,13 @@ const Ventas = () => {
                     }
                 />
 
-                <ModalEditar open={estadoModal} cerrar={cerrarModal} venta={ventaEditado} />
+                <ModalEditar open={estadoModal} cerrar={cerrarModal} venta={detalleVentaEditado} />
                 <Confirmacion open={estadoConfirmacion}
                     titulo="Eliminado venta"
                     mensaje="Está seguro?"
                     cerrar={cerrarConfirmacion}
                     aceptar={aceptarConfirmacion}
-                />
+                />  
             </div>
 
         </div>
@@ -232,4 +235,4 @@ const Ventas = () => {
     );
 }
 
-export default Ventas;
+export default Carrito;

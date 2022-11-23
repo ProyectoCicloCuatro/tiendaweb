@@ -17,7 +17,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Modal from './Modal';
 import Swal from 'sweetalert2'
-import { listarProductos } from "../service/Listas";
+import { listarProductos, listarDetalleVentas } from "../service/Listas";
 import { Icon } from "@material-ui/core";
 
 const ShoppingCart = () => {
@@ -31,29 +31,61 @@ const ShoppingCart = () => {
     const productosT = await listarProductos();
     setProductos(productosT);
     setEstadoListado(false);
-    
+
   }
 
   if (estadoListado) {
     obtenerProductos();
-   
+
   }
 
+  ///////////// para el carrito////////
+
+
+  const datas = [];
+  //variable que almacenar[a el listado de productos]
+  const [detalle, setDetalle] = useState([]);
+  //const [products, cart] = useState([state]);
+  const [estadoDetalle, setEstadoDetalle] = useState(true);
+
+  async function obtenerDetalles() {
+    const detalleT = await listarDetalleVentas();
+    setDetalle(detalleT);
+    setEstadoDetalle(false);
+
+  }
+
+  if (estadoDetalle) {
+    obtenerDetalles();
+
+  }
+  {
+/*
+    detalle.map((detalle, index) => (
+      datas = detalle.producto
+    ));
+    console.log(datas);
+*/
+  }
+
+
+
+  ////////////para el carrito ///////
 
   const [estadoModal1, cambiarEstadoModal1] = useState(false);
   const [state, dispatch] = useReducer(shoppingReducer, shoppingInitialState);
   const { productos, cart } = state;
- // const cart  = [state];
+  // const cart  = [state];
   const Swal = require('sweetalert2')
 
 
 
   //metodo para agregar al carrito
   const addToCart = (data) => {
-    let { id, nombre, precio, urlImagen } = data;
+    let { id, nombre, precio, urlImagen, cantidad } = data;
     //console.log(id);
-   
-   //window.alert(nombre);
+
+    //window.alert(nombre);
     dispatch({ type: TYPES.ADD_TO_CART, payload: data });
   };
   //metodo para eliminar del carrito
@@ -70,6 +102,8 @@ const ShoppingCart = () => {
     dispatch({ type: TYPES.CLEAR_CART });
   };
 
+  
+
   return (
     <section className="py-5">
       <div className="d-flex align-items-center justify-content-center">
@@ -84,11 +118,11 @@ const ShoppingCart = () => {
       </div>
       <div className="container px-4 px-lg-5 mt-5">
         <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-       
-        {
-          products.map((product) => (
-            <ProductItem key={product.id} data={product} addToCart={addToCart} />
-          ))}
+
+          {
+            products.map((product) => (
+              <ProductItem key={product.id} data={product} addToCart={addToCart} />
+            ))}
         </div>
       </div>
       <div className="d-flex align-items-center justify-content-center">
@@ -102,7 +136,7 @@ const ShoppingCart = () => {
         </ButtonGroup>
 
         <Modal
-          
+
           estado={estadoModal1}
           cambiarEstado={cambiarEstadoModal1}
           titulo="Carrito de Compras"
@@ -110,42 +144,41 @@ const ShoppingCart = () => {
           <Contenido>
 
             <h1 color="primary">Carrito de Compras </h1>
-
-
-            {cart.map((item, index) => (
-              //window.alert(item),
+            {
+              cart.map((item, index) => (
+             
               <CartItem key={index} data={item} delFromCart={delFromCart} />
             ))}
-<div>
-            <Button color="primary" onClick={() => Swal.fire({
-              title: '¿Está seguro?',
-              text: "Esta acción eliminará todos los artículos y dejará totalmente vació el carrito de compras!",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Si, eliminar esto!'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                clearCart();
-                Swal.fire({
-                  icon: 'success',
-                  text: '¡Borrado!.\n El carrito se ha vaciado correctamente.\n'
-                });
-                cambiarEstadoModal1(!estadoModal1)
-              }
-            })}> Limpiar Carrito
-            <Icon>
-            backspace
-            </Icon> 
-            </Button>  &nbsp;&nbsp;
-            <Button color="success">
-             Pagar
-             <Icon>
-            shopping_cart_checkout
-            </Icon>
-            </Button></div>
-            
+            <div>
+              <Button color="primary" onClick={() => Swal.fire({
+                title: '¿Está seguro?',
+                text: "Esta acción eliminará todos los artículos y dejará totalmente vació el carrito de compras!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar esto!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  clearCart();
+                  Swal.fire({
+                    icon: 'success',
+                    text: '¡Borrado!.\n El carrito se ha vaciado correctamente.\n'
+                  });
+                  cambiarEstadoModal1(!estadoModal1)
+                }
+              })}> Limpiar Carrito
+                <Icon>
+                  backspace
+                </Icon>
+              </Button>  &nbsp;&nbsp;
+              <Button color="success" >
+                Pagar
+                <Icon>
+                  shopping_cart_checkout
+                </Icon>
+              </Button></div>
+
           </Contenido>
         </Modal>
       </div>

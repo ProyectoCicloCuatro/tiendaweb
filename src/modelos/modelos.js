@@ -1,10 +1,11 @@
-export const Producto = function (id, urlImagen, nombre, descripcion, caracteristicas, precio) {
+export const Producto = function (id, urlImagen, nombre, descripcion, caracteristicas, precio, cantidad) {
     this.id = id;
     this.urlImagen = urlImagen;
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.caracteristicas = caracteristicas;
     this.precio = precio;
+    this.cantidad = cantidad;
 }
 
 
@@ -61,11 +62,18 @@ export const Producto = function (id, urlImagen, nombre, descripcion, caracteris
   }
 ]
 */
-export const Venta = function  (id, fecha, valor, confirmado, detalleCompra, cliente) {
+export const Venta = function  (id, cliente, fecha, valor, confirmado){
     this.id = id;
+    this.cliente = cliente;
     this.fecha = fecha;
     this.valor = valor;
     this.confirmado = confirmado;
-    this.detalleCompra = detalleCompra;
-    this.cliente = cliente;
+
+}
+
+export const DetalleVenta = function  (id, producto, cantidad, valorunitario){
+  this.idVenta = id;
+  this.producto = producto;
+  this.cantidad = cantidad;
+  this.valorunitario = valorunitario;
 }
